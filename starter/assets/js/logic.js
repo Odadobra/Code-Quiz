@@ -11,19 +11,20 @@ var correct = document.getElementById("correct");
 var answerResponse = document.getElementById("answerResponse");
 var finalScoreIs = document.getElementById("final-score");
 var quizQuestionsPage = document.getElementById("questions");
-var questionButton = document.querySelector(".choices");
+var questionButton = document.querySelector(".questionButton");
 var quizChallengePage = document.getElementById("start-screen");
 var finalScorePage = document.getElementById("end-screen");
-var highScoreButtons = document.getElementById("wrapper");
+var highScoreButtons = document.getElementById("highScoreButtons");
 var initialButton = document.getElementById("initialButton");
 var initials = document.getElementById("initials");
 var initialInput = document.getElementById("initialInput");
 var allDone = document.getElementById("allDone");
 var allDoneButtons = document.getElementById("form-inline");
 var timer = document.querySelector(".timer"); // Timer Variable
+var clearHighScore = document.getElementById("clear");
 var startScore = 0;
 var questionIndex = 0;
-var highScoreArray = [] // Global variable
+
 ////////////QUESTIONS////////////////
 var quizQuestions = [
     {
@@ -137,6 +138,25 @@ function showFinalScore() { //Function to go to page when time out or quiz compl
     initials.textContent = "Enter Your Initials: "; // Form text
 } // end of showFinalScore
 
+var highScoreArray = [] // Global variable
+
+// SHOWS ALL HIGH SCORES
+function showHighScores() {
+    header.style.display = "none"; // Hide header
+    allDone.style.display = "none"; // Hide all done
+    finalScoreIs.style.display = "none" // Hide Final Score
+    initials.style.display = "none" // Hide initial input
+    initialButton.style.display = "none" // Hide initial button
+    initialInput.style.display = "none" // Hide initial button
+    var getInitials = document.getElementById("initialInput").value; // captures the value of the initials
+    var highScoreArray = JSON.parse(localStorage.getItem("highScore")) || [];
+    var localStorageArray = { score: secondsLeft, initials: getInitials };
+    highScoreArray.push(localStorageArray)
+    localStorage.setItem("highScore", JSON.stringify(highScoreArray)); // Adds array
+    var highScores = getInitials + ": " + secondsLeft; // add in + getInitials when read it
+    window.location.href = '../highscores.html';
+}
+
 // RESETTING GLOBAL VARIABLES WHEN RESTART QUIZ
 function resetVariables() {
     startScore = 0;
@@ -174,12 +194,12 @@ initialButton.addEventListener("click", function () {
 })
 
 // GO BACK BUTTON EVENT liSTENER
-goBack.addEventListener("click", function () { // Go back to the home page
-    $("#highScoreList").empty() // clears out container
-    $("#initialInput").val("") // clears out the value in initial input
-    resetVariables()
-    codeQuizChallenge();
-    console.log("restart quiz")
-})
+// goBack.addEventListener("click", function () { // Go back to the home page
+//     $("#highScoreList").empty() // clears out container
+//     $("#initialInput").val("") // clears out the value in initial input
+//     resetVariables()
+//     codeQuizChallenge();
+//     console.log("restart quiz")
+// })
 // Page starts at home page
 codeQuizChallenge();
