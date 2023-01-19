@@ -127,7 +127,6 @@ function checkAnswer(event) {
 // GO TO "ALL DONE" PAGE AND SHOW FINAL SCORE
 function showFinalScore() { //Function to go to page when time out or quiz complete
     quizQuestionsPage.style.display = "none"; // Hide Questions Page
-    highScoreButtons.style.display = "none"; // Hide Questions Page
     finalScorePage.style.display = "block"; // Show Final Score Page
     finalScoreIs.style.display = "block" // Show Final Score
     initials.style.display = "block" // Show initial input
@@ -137,23 +136,7 @@ function showFinalScore() { //Function to go to page when time out or quiz compl
     initialButton.textContent = "Submit"; // Form button
     initials.textContent = "Enter Your Initials: "; // Form text
 } // end of showFinalScore
-// SHOWS ALL HIGH SCORES
-function showHighScores() {
-    header.style.display = "none"; // Hide header
-    allDone.style.display = "none"; // Hide all done
-    finalScoreIs.style.display = "none" // Hide Final Score
-    initials.style.display = "none" // Hide initial input
-    initialButton.style.display = "none" // Hide initial button
-    initialInput.style.display = "none" // Hide initial button
-    highScoreButtons.style.display = "block"; // Show Final Score Page
-    var getInitials = document.getElementById("initialInput").value; // captures the value of the initials
-    var highScoreArray = JSON.parse(localStorage.getItem("highScore")) || [];
-    var localStorageArray = { score: secondsLeft, initials: getInitials };
-    highScoreArray.push(localStorageArray)
-    localStorage.setItem("highScore", JSON.stringify(highScoreArray)); // Adds array
-    var highScores = getInitials + ": " + secondsLeft; // add in + getInitials when read it
-    $("#highScoreList").append(highScores) // Appends high score & initials
-}
+
 // RESETTING GLOBAL VARIABLES WHEN RESTART QUIZ
 function resetVariables() {
     startScore = 0;
@@ -189,10 +172,7 @@ initialButton.addEventListener("click", function () {
     showHighScores();
     console.log("initial button")
 })
-// CLEAR HIGH SCORES
-clearHighScore.addEventListener("click", function () {
-    localStorage.clear();
-})
+
 // GO BACK BUTTON EVENT liSTENER
 goBack.addEventListener("click", function () { // Go back to the home page
     $("#highScoreList").empty() // clears out container
